@@ -26,8 +26,8 @@
 
         <!-- USE HTMLUnit 2.23 with WebDriver 3.0.1
             v 3.0.1 had changes and now 2.23 works with WebDriver 3.0.01 -->
-        <webdriver.version>3.0.1</webdriver.version>
-        <htmlunitdriver.version>2.23</htmlunitdriver.version>
+        <webdriver.version>3.5.3</webdriver.version>
+        <htmlunitdriver.version>2.27</htmlunitdriver.version>
 
     </properties>
 
@@ -43,15 +43,7 @@
 
 
 
-        <!-- from WebDriver 2.53.0 HTMLUnit is no longer distributed with Selenium WebDriver -->
-        <!-- https://github.com/SeleniumHQ/htmlunit-driver -->
-        <!-- need to bring in the htmlunit driver on its own -->
-        <!-- https://github.com/SeleniumHQ/selenium/blob/master/java/CHANGELOG -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>htmlunit-driver</artifactId>
-            <version>${htmlunitdriver.version}</version>
-        </dependency>
+
 
         <dependency>
             <!-- bring in the full selenium deploy
@@ -67,6 +59,17 @@
         </dependency>
 
 
+        <!-- from WebDriver 2.53.0 HTMLUnit is no longer distributed with Selenium WebDriver -->
+        <!-- https://github.com/SeleniumHQ/htmlunit-driver -->
+        <!-- need to bring in the htmlunit driver on its own -->
+        <!-- https://github.com/SeleniumHQ/selenium/blob/master/java/CHANGELOG -->
+        <!-- Added HTMLUnit After Selenium in the pom.xml to reduce risk of dependency clash -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <version>${htmlunitdriver.version}</version>
+        </dependency>
+        
     </dependencies>
 
 

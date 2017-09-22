@@ -1,7 +1,6 @@
 package com.seleniumsimplified.webdriver.synchronisation.fluentWait;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.seleniumsimplified.webdriver.manager.Driver;
 import com.seleniumsimplified.webdriver.manager.TestEnvironment;
 import org.junit.Before;
@@ -58,23 +57,5 @@ public class FluentWaitForWebElementExampleTest {
                 }
                 );
     }
-
-    @Test
-    public void waitForWebElementFluentlyPredicate(){
-
-        // predicate always returns true or false
-        // the generic is to define the argument
-        // to apply predicate function to
-        new FluentWait<WebElement>(countdown).
-                withTimeout(10, TimeUnit.SECONDS).
-                pollingEvery(100, TimeUnit.MILLISECONDS).
-                until(new Predicate<WebElement>() {
-                    @Override
-                    public boolean apply(WebElement element) {
-                        return element.getText().endsWith("04");
-                    }
-                }
-                );
-    }
-
+    
 }
