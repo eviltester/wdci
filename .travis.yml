@@ -24,6 +24,7 @@ script:
 # - mvn -f code/pom.xml test -Dselenium2basics.webdriver=FIREFOXLEGACY
 - mvn -f code/pom.xml clean test -Dselenium2basics.webdriver=HTMLUNIT
 - xvfb-run -e /dev/stdout --auto-servernum --server-args="-screen 0 1024x768x24" mvn -f code/pom.xml clean test -Dselenium2basics.webdriver=GOOGLECHROME
+- xvfb-run -e /dev/stdout --auto-servernum --server-args="-screen 0 1024x768x24" mvn -f code/pom.xml clean test -Dselenium2basics.webdriver=FIREFOX
 jdk:
   - oraclejdk11
   - openjdk8
