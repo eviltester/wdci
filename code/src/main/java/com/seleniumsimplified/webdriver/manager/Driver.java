@@ -172,9 +172,6 @@ public class Driver extends Thread{
 
             switch (useThisDriver) {
                 case FIREFOX:
-                    FirefoxProfile profile = new FirefoxProfile();
-                    profile.setEnableNativeEvents(true);
-
                     // selenium 3 defaults to using Marionette for Firefox so needs the geckodriver
                     // use the FirefoxPortable for the legacy Firefox driver
                     setDriverPropertyIfNecessary("webdriver.firefox.driver", "/../tools/marionette/geckodriver.exe", "C://webdrivers/marionette/geckodriver.exe");
