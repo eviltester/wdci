@@ -1,16 +1,30 @@
-language: java
-# project is using Selenium WebDriver where the legacy Firefox driver only works up to v 47.1
-# If v48 or above is used then the marionette driver would have to be installed and I don't think
-# it is installed on Travis so control the version of Firefox that is used
+# configuration for webdriver changed considerably when travis updated
+# switched from firefox to CHROMEDRIVER
+dist: xenial
 addons:
-  firefox: "47.0.1"
-jdk:
-  - oraclejdk8
+  chrome: stable
+# changes for xvfb required for xenial as per https://docs.travis-ci.com/user/gui-and-headless-browsers/
+services:
+  - xvfb
+install:
+  # hacking in stuff from seleniumhq https://github.com/SeleniumHQ/selenium/blob/master/.travis.yml
+  #                                  https://github.com/SeleniumHQ/selenium/blob/master/scripts/travis/install.sh
+  # install chromedriver
+  - export CHROMEDRIVER_VERSION=`curl -s http://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+  - curl -L -O "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+  - unzip chromedriver_linux64.zip && chmod +x chromedriver && sudo mv chromedriver /usr/local/bin
+language: java
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 script:
-# added HTMLUnit back ito the build for 3.0.1
+# FIREFOX Driver requires additional install
+# - mvn -f code/pom.xml test -Dselenium2basics.webdriver=FIREFOXLEGACY
 - mvn -f code/pom.xml test -Dselenium2basics.webdriver=HTMLUNIT
-- mvn -f code/pom.xml test -Dselenium2basics.webdriver=FIREFOXLEGACY
+- xvfb-run -e /dev/stdout --auto-servernum --server-args="-screen 0 1024x768x24" mvn -f code/pom.xml test -Dselenium2basics.webdriver=HTMLUNIT
+jdk:
+  - oraclejdk11
+  - openjdk8
+  - openjdk10
+  - openjdk11

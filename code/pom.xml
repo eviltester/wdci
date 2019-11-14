@@ -14,20 +14,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- up to date as of 20191112 -->
         <junit.version>4.12</junit.version>
-
-        <!-- USE HTMLUnit 2.21 with WebDriver 2.53.1
-            2.21 of HTMLUnit works with 2.53.1 webdriver,
-            but could not get 2.23 working at all with 3 or 2.53.1 -->
-<!--
-        <webdriver.version>2.53.1</webdriver.version>
-        <htmlunitdriver.version>2.21</htmlunitdriver.version>
--->
-
-        <!-- USE HTMLUnit 2.23 with WebDriver 3.0.1
-            v 3.0.1 had changes and now 2.23 works with WebDriver 3.0.01 -->
-        <webdriver.version>3.5.3</webdriver.version>
-        <htmlunitdriver.version>2.27</htmlunitdriver.version>
+        <webdriver.version>3.141.59</webdriver.version>
+        <htmlunitdriver.version>2.36.0</htmlunitdriver.version>
 
     </properties>
 
@@ -46,14 +36,8 @@
 
 
         <dependency>
-            <!-- bring in the full selenium deploy
-                 we could be more selective and bring
-                 only what we need -->
-            <!-- http://docs.seleniumhq.org/download/maven.jsp -->
-            <!-- As per https://github.com/SeleniumHQ/selenium/issues/2575#issuecomment-237699393
-                I am excluding Selenium-RC and WebDriverBacked to allow compatibility with JUnit -->
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-server</artifactId>
+            <artifactId>selenium-java</artifactId>
             <version>${webdriver.version}</version>
 
         </dependency>

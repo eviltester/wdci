@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -37,7 +38,7 @@ public class Driver extends Thread{
     public static final String BROWSER_PROPERTY_NAME = "selenium2basics.webdriver";
 
 
-    private static final  String DEFAULT_BROWSER = "FIREFOX";
+    private static final  String DEFAULT_BROWSER = "GOOGLECHROME";
 
     public enum BrowserName{FIREFOX, FIREFOXLEGACY, GOOGLECHROME, SAUCELABS, IE, HTMLUNIT, GRID, FIREFOXPORTABLE, FIREFOXMARIONETTE, APPIUM, EDGE}
 
@@ -169,8 +170,6 @@ public class Driver extends Thread{
 
             long startBrowserTime = System.currentTimeMillis();
 
-            // for WebDriver 3 compatibility I may need to set the FirefoxDriver to use the legacy driver rather than marionette
-            // -Dwebdriver.firefox.marionette=false
             switch (useThisDriver) {
                 case FIREFOX:
                     FirefoxProfile profile = new FirefoxProfile();
@@ -178,7 +177,7 @@ public class Driver extends Thread{
 
                     // selenium 3 defaults to using Marionette for Firefox so needs the geckodriver
                     // use the FirefoxPortable for the legacy Firefox driver
-                    setDriverPropertyIfNecessary("webdriver.gecko.driver", "/../tools/marionette/geckodriver.exe", "C://webdrivers/marionette/geckodriver.exe");
+                    setDriverPropertyIfNecessary("webdriver.firefox.driver", "/../tools/marionette/geckodriver.exe", "C://webdrivers/marionette/geckodriver.exe");
 
                     aDriver = new FirefoxDriver();//profile);
                     currentDriver = BrowserName.FIREFOX;
@@ -187,39 +186,10 @@ public class Driver extends Thread{
                 case FIREFOXLEGACY:
 
                     // use the legacy selenium driver with the built in firefox
-
-                    DesiredCapabilities legacyCapabilities = DesiredCapabilities.firefox();
-                    legacyCapabilities.setCapability("marionette", false);
-                    aDriver = new FirefoxDriver(legacyCapabilities);
+                    FirefoxOptions ffoptions = new FirefoxOptions();
+                    ffoptions.setLegacy(true);
+                    aDriver = new FirefoxDriver(ffoptions);
                     currentDriver = BrowserName.FIREFOX;
-                    break;
-
-                case FIREFOXPORTABLE:
-
-                    setDriverPropertyIfNecessary("seleniumsimplified.firefoxportable", "/../FirefoxPortable/FirefoxPortable.exe", "C://webdrivers/FirefoxPortable/FirefoxPortable.exe");
-
-                    // for WebDriver 3 compatibility I need to set the FirefoxDriver to use the legacy driver rather than marionette
-                    // -Dwebdriver.firefox.marionette=false
-                    // done using capabitility bellow  setCapability("marionette", false)
-
-                    DesiredCapabilities portableCapabilities = DesiredCapabilities.firefox();
-                    portableCapabilities.setCapability("marionette", false);
-                    portableCapabilities.setCapability("firefox_binary",
-                            new File(System.getProperty("seleniumsimplified.firefoxportable")).getAbsolutePath());
-
-                    aDriver = new FirefoxDriver(portableCapabilities);
-
-                    currentDriver = BrowserName.FIREFOX;
-                    break;
-
-                case FIREFOXMARIONETTE:
-
-                    // for version 10 and above of Marionette driver use geckodriver.exe
-                    // for Selenium 3 we can just use the Firefox driver above with geckodriver on the path
-                    setDriverPropertyIfNecessary("webdriver.gecko.driver", "/../tools/marionette/geckodriver.exe", "C://webdrivers/marionette/geckodriver.exe");
-
-                    aDriver = new FirefoxDriver();//profile);
-                    currentDriver = BrowserName.FIREFOXMARIONETTE;
                     break;
 
                 case HTMLUNIT:
