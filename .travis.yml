@@ -17,6 +17,7 @@ install:
   # install firefox Driver hard coded to version 26
   - curl -L -O "https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz"
   - tar -xzf geckodriver-v0.26.0-linux64.tar.gz && chmod +x geckodriver && sudo mv geckodriver /usr/local/bin
+  # No need for separate install of HTMLUnitDriver since this is a maven dependency
 
 language: java
 script:
