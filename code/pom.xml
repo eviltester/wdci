@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- up to date as of 20191112 -->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <webdriver.version>3.141.59</webdriver.version>
         <!-- https://github.com/HtmlUnit/htmlunit -->
         <htmlunitdriver.version>2.39.0</htmlunitdriver.version>
